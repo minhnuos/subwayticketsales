@@ -39,29 +39,44 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                	<h3 class="text-center mb-3">Danh sách chi tiết vé</h3>
-                	
+                	<h3 class="text-center mb-3">Danh sách người đặt hàng</h3>
                 	
                 	
 					<table class="table mt-3">
 					  <thead>
 					    <tr>
 					      <th scope="col">#</th>
-					      <th scope="col">Mã vé</th>
-					      <th scope="col">tình trạng</th>
-					      
+					      <th scope="col">Tên khách hàng</th>
+					      <th scope="col">Số điện thoại</th>
+					      <th scope="col">Địa chỉ</th>
+					      <th scope="col">Số lượng vé</th>
+					      <th scope="col">Số tiền</th>
+					      <th scope="col">Tình trạng</th>
+					      <th scope="col">Action</th>
 					    </tr>
 					  </thead>
-					  <tbody th:each="tickets,iter : ${tripDTO.getTicketsDTOs()}">
+					  <tbody th:each="listResponseBooking,iter : ${listResponseBookings}">
 					    <tr>
 					      <th scope="row" th:text="${iter.index}"></th>
-					      <td th:text="${tickets.code}"></td>
-					      
-					     <td>
-						    <span th:if="${tickets.status}" class="badge badge-success">Còn trống</span>
-						    <span th:unless="${tickets.status}" class="badge badge-warning">Đã Có người mua</span>
+					      <td scope="row" th:text="${listResponseBooking.name}"></td>
+					      <td scope="row" th:text="${listResponseBooking.phone}"></td>
+					      <td scope="row" th:text="${listResponseBooking.address}"></td>
+					      <td scope="row" th:text="${listResponseBooking.quantity}"></td>
+					      <td scope="row" th:text="${listResponseBooking.total}"></td>
+					      <td>
+						    <span th:if="${listResponseBooking.status}" class="badge badge-success">Đã xác nhận</span>
+						    <span th:unless="${listResponseBooking.status}" class="badge badge-warning">Chưa xác nhận</span>
 						</td>
 					      
+					      <td>
+					      	<div class="btn-group">
+					      		<a  class="btn btn-warning">Chi tiết</a>
+					      		<a th:unless="${listResponseBooking.status}" th:href="@{/booking/active/{id}(id=${listResponseBooking.id}) }" class="btn btn-success">Xác nhận</a>
+					      		<a th:unless="${listResponseBooking.status}"  class="btn btn-danger">Hủy</a>
+					      		
+					      		
+					      	</div>
+					      </td>
 					    </tr>
 					    
 					  </tbody>

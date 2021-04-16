@@ -1,0 +1,11 @@
+#notify {
+    overflow-y: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+     min-height: 0;
+    max-height: 350px;
+}
+#notify::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
+}
