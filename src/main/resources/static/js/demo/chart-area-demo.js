@@ -28,11 +28,17 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 }
 
 // Area Chart Example
-var ctx = document.getElementById("myAreaChart");
-var myLineChart = new Chart(ctx, {
+
+$.ajax({
+  type:"GET",
+url: "http://localhost:8080/api/earnings-overview",
+statusCode: {
+    200: function(resData) {
+      var ctx = document.getElementById("myAreaChart");
+    var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
     datasets: [{
       label: "Earnings",
       lineTension: 0.3,
@@ -45,8 +51,8 @@ var myLineChart = new Chart(ctx, {
       pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      pointBorderWidth: 3,
+      data: [resData[0]['total'], resData[1]['total'], resData[2]['total'], resData[3]['total'], resData[4]['total'], resData[5]['total'], resData[6]['total'], resData[7]['total'], resData[8]['total'], resData[9]['total'], resData[10]['total'], resData[11]['total']],
     }],
   },
   options: {
@@ -69,7 +75,7 @@ var myLineChart = new Chart(ctx, {
           drawBorder: false
         },
         ticks: {
-          maxTicksLimit: 7
+          maxTicksLimit: 12
         }
       }],
       yAxes: [{
@@ -85,8 +91,8 @@ var myLineChart = new Chart(ctx, {
           color: "rgb(234, 236, 244)",
           zeroLineColor: "rgb(234, 236, 244)",
           drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
+          borderDash: [1],
+          zeroLineBorderDash: [1]
         }
       }],
     },
@@ -116,3 +122,6 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
+    }
+  }
+})

@@ -18,4 +18,6 @@ public interface DayService {
 	public DayDTO getLastDay();
 	
 	public DayDTO findDayDTOByDay(String day);
+	
+	
 }

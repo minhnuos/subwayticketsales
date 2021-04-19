@@ -85,7 +85,7 @@
 					      <td th:text="${listTicketsTourDTO.getRouteDTO().getStopPointDTOEnd().name}"></td>
 					      <th th:text="${listTicketsTourDTO.quantity}"></th>
 					     <th th:text="${listTicketsTourDTO.remain}"></th>
-					      <td th:text="${listTicketsTourDTO.price}"></td>
+					      <td th:text="${listTicketsTourDTO.priceFormat()}"></td>
 					      <td>
 					      	<div class="btn-group">
 					      		<a th:href="@{/ticketstour/{day}/{id}(day=${listTicketsTourDTO.getDayDTO().day},id= ${listTicketsTourDTO.id}) }" class="btn btn-warning">Chi tiết</a>

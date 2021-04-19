@@ -62,7 +62,7 @@
 					      <td scope="row" th:text="${listResponseBooking.phone}"></td>
 					      <td scope="row" th:text="${listResponseBooking.address}"></td>
 					      <td scope="row" th:text="${listResponseBooking.quantity}"></td>
-					      <td scope="row" th:text="${listResponseBooking.total}"></td>
+					      <td scope="row" th:text="${listResponseBooking.totalFormat()}"></td>
 					      <td>
 						    <span th:if="${listResponseBooking.status}" class="badge badge-success">Đã xác nhận</span>
 						    <span th:unless="${listResponseBooking.status}" class="badge badge-warning">Chưa xác nhận</span>

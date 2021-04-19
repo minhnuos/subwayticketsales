@@ -86,7 +86,7 @@
 					      <th th:text="${listTripDTO.getDepartureTimeDTO().time + 'h'}"></th>
 					      <td th:text="${listTripDTO.quantity}"></td>
 					      <td th:text="${listTripDTO.remain}"></td>
-					      <td th:text="${listTripDTO.price}"></td>
+					      <td th:text="${listTripDTO.priceFormat()}"></td>
 					      <td>
 					      	<div class="btn-group">
 					      		<a th:href="@{/trip/{day}/{id}(day=${listTripDTO.getDayDTO().day},id= ${listTripDTO.id}) }" class="btn btn-warning">Chi tiết</a>

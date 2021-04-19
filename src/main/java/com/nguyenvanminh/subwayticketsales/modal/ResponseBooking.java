@@ -1,5 +1,8 @@
 package com.nguyenvanminh.subwayticketsales.modal;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class ResponseBooking {
 
 	private int id;
@@ -18,7 +21,12 @@ public class ResponseBooking {
 	
 	private boolean status;
 	
-	
+	public String totalFormat() {
+		Locale localeVN = new Locale("vi", "VN");
+	    NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+	    String result = currencyVN.format(this.total);
+		return result;
+	}
 	
 	public boolean isStatus() {
 		return status;

@@ -1,6 +1,8 @@
 package com.nguyenvanminh.subwayticketsales.modal;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class TicketsTourDTO {
 
@@ -14,6 +16,12 @@ public class TicketsTourDTO {
 	
 	private int price;
 
+	public String priceFormat() {
+		Locale localeVN = new Locale("vi", "VN");
+	    NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+	    String result = currencyVN.format(this.price);
+		return result;
+	}
 	
 	private List<TicketsTourDetailDTO> ticketsTourDetailDTOs;
 	
