@@ -32,7 +32,7 @@ public class ApiController {
 		List<Booking> listBookings = this.bookingDAO.listBookings();
 		List<ResponseBooking> responseBookings = new ArrayList<ResponseBooking>();
 		for (Booking booking : listBookings) {
-			if(!booking.isStatus()) {
+			if(booking.getStatus() == 0) {
 				ResponseBooking responseBooking = new ResponseBooking(
 						booking.getCustomer().getName(),
 						booking.getTime());

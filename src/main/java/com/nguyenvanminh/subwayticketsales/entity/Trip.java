@@ -39,6 +39,9 @@ public class Trip implements Serializable{
 	@JoinColumn(name="route_id")
 	private Route route;
 	
+	
+	
+	
 	private int quantity;
 
 	private int price;

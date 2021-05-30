@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Admin</title>
 
     <!-- Custom fonts for this template-->
     <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -43,7 +43,6 @@
 						<div class="row">
 							<div class="col-9">
 								<div class="row">
-
 			                        <!-- Earnings (Monthly) Card Example -->
 			                        <div class="col-xl-4 col-md-7 mb-5">
 			                            <div class="card border-left-primary shadow h-100 py-2">
@@ -51,7 +50,7 @@
 			                                    <div class="row no-gutters align-items-center">
 			                                        <div class="col mr-2">
 			                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-			                                                Doanh thu tháng này</div>
+			                                                Doanh số tháng này</div>
 			                                            <div class="h5 mb-0 font-weight-bold text-gray-800">[[${revenueMonth.numberFormat(revenueMonth.total)}]] </div>
 			                                        </div>
 			                                        <div class="col-auto">
@@ -107,6 +106,53 @@
 			                            </div>
 			                        </div>
 			                    </div>
+			                    
+			                    <div class="row mb-2">
+			                        <!-- Earnings (Monthly) Card Example -->
+			                        <div class="col-xl-6 col-md-7 ">
+			                            <div class="card border-left-primary shadow h-100 py-2">
+			                                <div class="card-body">
+			                                    <div class="row no-gutters align-items-center">
+			                                        <div class="col mr-2">
+			                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+			                                                Doanh số tuyến nhiều nhất</div>
+			                                                <div class="text-xs 
+			                                            
+			                                                 text-primary text-uppercase mb-1"
+			                                                 >
+			                                                 [[${responseRevenueMax.name}]]
+			                                                </div>
+			                                            <div class="h5 mb-0 font-weight-bold text-gray-800">[[${responseRevenueMax.revenueFormat()}]] </div>
+			                                        </div>
+			                                        <div class="col-auto">
+			                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+			                                        </div>
+			                                    </div>
+			                                </div>
+			                            </div>
+			                        </div>
+			
+									<!-- Earnings (Monthly) Card Example -->
+			                        <div class="col-xl-6 col-md-7 ">
+			                            <div class="card border-left-primary shadow h-100 py-2">
+			                                <div class="card-body">
+			                                    <div class="row no-gutters align-items-center">
+			                                        <div class="col mr-2">
+			                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+			                                                Doanh số tuyến ít nhất</div>
+			                                                 <div class="text-xs  text-primary text-uppercase mb-1">
+			                                                [[${responseRevenueMin.name}]]</div>
+			                                            <div class="h5 mb-0 font-weight-bold text-gray-800">[[${responseRevenueMin.revenueFormat()}]] </div>
+			                                        </div>
+			                                        <div class="col-auto">
+			                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+			                                        </div>
+			                                    </div>
+			                                </div>
+			                            </div>
+			                        </div>
+			                        </div>
+			                    
 							</div>
 							<div class="col-3" style="box-shadow: 0px 0px 20px 0px #00000057;border-radius: .35rem;">
 								<form th:action="@{/day/active}" method="post" class="mt-2">
@@ -136,7 +182,7 @@
 							
 							</div>
 						</div>
-              			<div class="row">
+              			<div class="row mt-2">
 
                         <!-- Area Chart -->
                         <div class="col-12">

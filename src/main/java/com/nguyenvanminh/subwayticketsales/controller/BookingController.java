@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nguyenvanminh.subwayticketsales.modal.ResponseBooking;
+import com.nguyenvanminh.subwayticketsales.modal.ResponseDetailTickets;
 import com.nguyenvanminh.subwayticketsales.service.BookingService;
 
 @Controller
@@ -30,5 +31,18 @@ public class BookingController {
 	public String activeBooking(@PathVariable int id) {
 		this.bookingService.updateBooking(id);
 		return "redirect:/booking";
+	}
+	
+	@GetMapping("/unactive/{id}")
+	public String unActiveBooking(@PathVariable int id) {
+		this.bookingService.unActiveBooking(id);
+		return "redirect:/booking";
+	}
+	
+	@GetMapping("/detail/{id}")
+	public String bookingDetail(@PathVariable int id, ModelMap map) {
+		List<ResponseDetailTickets> detailTickets = this.bookingService.listDetailTickets(id);
+		map.addAttribute("detailTickets", detailTickets);
+		return "pages/booking/detail";
 	}
 }

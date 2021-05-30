@@ -10,11 +10,20 @@ import org.springframework.stereotype.Repository;
 
 import com.nguyenvanminh.subwayticketsales.dao.BookingDAO;
 import com.nguyenvanminh.subwayticketsales.dao.DayDAO;
+import com.nguyenvanminh.subwayticketsales.dao.TicketsDAO;
+import com.nguyenvanminh.subwayticketsales.dao.TicketsTourDAO;
+import com.nguyenvanminh.subwayticketsales.dao.TicketsTourDetailDAO;
+import com.nguyenvanminh.subwayticketsales.dao.TripDAO;
 import com.nguyenvanminh.subwayticketsales.entity.Booking;
+import com.nguyenvanminh.subwayticketsales.entity.BookingTickets;
+import com.nguyenvanminh.subwayticketsales.entity.BookingTicketsTour;
 import com.nguyenvanminh.subwayticketsales.entity.Day;
+import com.nguyenvanminh.subwayticketsales.entity.Tickets;
 import com.nguyenvanminh.subwayticketsales.entity.TicketsTour;
+import com.nguyenvanminh.subwayticketsales.entity.TicketsTourDetail;
 import com.nguyenvanminh.subwayticketsales.entity.Trip;
 import com.nguyenvanminh.subwayticketsales.modal.ResponseBooking;
+import com.nguyenvanminh.subwayticketsales.modal.ResponseDetailTickets;
 import com.nguyenvanminh.subwayticketsales.modal.RevenueMonth;
 import com.nguyenvanminh.subwayticketsales.service.BookingService;
 
@@ -23,10 +32,22 @@ import com.nguyenvanminh.subwayticketsales.service.BookingService;
 public class BookingServiceImpl implements BookingService{
 
 	@Autowired
+	TicketsDAO ticketsDAO;
+	
+	@Autowired 
+	TicketsTourDetailDAO ticketsTuorDetailDAO;
+	
+	@Autowired
 	BookingDAO bookingDAO;
 	
 	@Autowired
 	DayDAO dayDAO;
+	
+	@Autowired
+	TripDAO tripDAO;
+	
+	@Autowired
+	TicketsTourDAO ticketsTourDAO;
 	
 	@Override
 	public List<ResponseBooking> listResponseBookings() {
@@ -42,8 +63,8 @@ public class BookingServiceImpl implements BookingService{
 			responseBooking.setTotal(booking.getTotal());
 			responseBooking.setQuantity(booking.getBookingTickets().size() + booking.getBookingTicketsTours().size());
 			responseBooking.setTime(booking.getTime());
-			responseBooking.setStatus(booking.isStatus());
-			if(!booking.isStatus()) {
+			responseBooking.setStatus(booking.getStatus());
+			if(booking.getStatus() == 0) {
 				responseBookings.add(responseBooking);
 			}
 		}
@@ -56,8 +77,8 @@ public class BookingServiceImpl implements BookingService{
 			responseBooking.setTotal(booking.getTotal());
 			responseBooking.setQuantity(booking.getBookingTickets().size() + booking.getBookingTicketsTours().size());
 			responseBooking.setTime(booking.getTime());
-			responseBooking.setStatus(booking.isStatus());
-			if(booking.isStatus()) {
+			responseBooking.setStatus(booking.getStatus());
+			if(booking.getStatus() != 0) {
 				responseBookings.add(responseBooking);
 			}
 		}
@@ -68,7 +89,7 @@ public class BookingServiceImpl implements BookingService{
 	public void updateBooking(int id) {
 		Booking booking = this.bookingDAO.findBookingById(id);
 		if(booking != null) {
-			booking.setStatus(true);
+			booking.setStatus(1);
 			this.bookingDAO.updateBooking(booking);
 		}
 		
@@ -118,6 +139,74 @@ public class BookingServiceImpl implements BookingService{
 		}
 		revenue.setTotal(total);
 		return revenue;
+	}
+
+	@Override
+	public void unActiveBooking(int id) {
+		// TODO Auto-generated method stub
+		Booking booking = this.bookingDAO.findBookingById(id);
+		if(booking != null) {
+			List<BookingTickets> listBookingTickets = booking.getBookingTickets();
+			for (BookingTickets bookingTickets : listBookingTickets) {
+				Tickets tickets = this.ticketsDAO.findTicketsById(bookingTickets.getTickets().getId());
+				if(tickets != null) {
+					tickets.setStatus(true);
+					this.ticketsDAO.update(tickets);
+					Trip trip = this.tripDAO.findTripById(tickets.getTrip().getId());
+					if(trip != null) {
+						trip.setRemain(trip.getRemain() + 1);
+						this.tripDAO.updateTrip(trip);
+						
+					}
+				}
+			}
+			
+			
+			
+			List<BookingTicketsTour> listBookingTicketsTours = booking.getBookingTicketsTours();  
+			for (BookingTicketsTour bookingTicketsTour : listBookingTicketsTours) {
+				TicketsTourDetail ticketsTourDetail = this.ticketsTuorDetailDAO.findTicketsTourDetailById(bookingTicketsTour.getTicketsTourDetail().getId());
+				if(ticketsTourDetail != null) {
+					ticketsTourDetail.setStatus(true);
+					this.ticketsTuorDetailDAO.updateTicketsTourDetail(ticketsTourDetail);
+					TicketsTour ticketsTour = this.ticketsTourDAO.findTicketsTourById(ticketsTourDetail.getTicketsTour().getId());
+					if(ticketsTour != null) {
+						ticketsTour.setRemain(ticketsTour.getRemain() + 1);
+						this.ticketsTourDAO.updateTicketsTour(ticketsTour);
+					}
+				}
+			}
+			
+			
+			
+			booking.setStatus(2);
+			this.bookingDAO.updateBooking(booking);
+		}
+	}
+
+	@Override
+	public List<ResponseDetailTickets> listDetailTickets(int id) {
+		List<ResponseDetailTickets> detailTickets = new ArrayList<ResponseDetailTickets>();
+		Booking booking = this.bookingDAO.findBookingById(id);
+		if(booking != null) {
+			
+			List<BookingTickets> listBookingTickets = booking.getBookingTickets();
+			for (BookingTickets bookingTickets : listBookingTickets) {
+				ResponseDetailTickets responseDetailTickets = new ResponseDetailTickets();
+				responseDetailTickets.setCode(bookingTickets.getTickets().getCode());
+				responseDetailTickets.setPrice(bookingTickets.getTickets().getTrip().getPrice());
+				detailTickets.add(responseDetailTickets);
+			}
+			
+			List<BookingTicketsTour> listBookingTicketsTours = booking.getBookingTicketsTours();
+			for (BookingTicketsTour bookingTicketsTour : listBookingTicketsTours) {
+				ResponseDetailTickets responseDetailTickets = new ResponseDetailTickets();
+				responseDetailTickets.setCode(bookingTicketsTour.getTicketsTourDetail().getCode());
+				responseDetailTickets.setPrice(bookingTicketsTour.getTicketsTourDetail().getTicketsTour().getPrice());
+				detailTickets.add(responseDetailTickets);
+			}
+		}
+		return detailTickets;
 	}
 
 	

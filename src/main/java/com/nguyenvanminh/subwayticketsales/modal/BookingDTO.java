@@ -8,7 +8,7 @@ public class BookingDTO {
 	
 	private String time;
 	
-	private boolean status;
+	private int status;
 	
 	private CustomerDTO customerDTO;
 
@@ -36,11 +36,11 @@ public class BookingDTO {
 		this.time = time;
 	}
 
-	public boolean isStatus() {
+	public int isStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void getStatus(int status) {
 		this.status = status;
 	}
 

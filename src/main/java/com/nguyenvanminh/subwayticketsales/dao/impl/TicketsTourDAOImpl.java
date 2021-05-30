@@ -36,6 +36,12 @@ public class TicketsTourDAOImpl implements TicketsTourDAO{
 		TicketsTour ticketsTour = this.entityManager.find(TicketsTour.class, id);
 		return ticketsTour;
 	}
+
+	@Override
+	public void updateTicketsTour(TicketsTour ticketsTour) {
+		// TODO Auto-generated method stub
+		this.entityManager.merge(ticketsTour);
+	}
 	
 	
 }

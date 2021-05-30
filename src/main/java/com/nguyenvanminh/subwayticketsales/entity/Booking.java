@@ -30,7 +30,7 @@ public class Booking implements Serializable{
 	
 	private String time;
 	
-	private boolean status;
+	private int status;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="customer_id")
@@ -84,11 +84,11 @@ public class Booking implements Serializable{
 		this.time = time;
 	}
 
-	public boolean isStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 

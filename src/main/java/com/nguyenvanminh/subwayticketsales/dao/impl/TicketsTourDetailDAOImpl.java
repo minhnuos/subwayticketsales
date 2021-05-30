@@ -21,6 +21,18 @@ public class TicketsTourDetailDAOImpl implements TicketsTourDetailDAO{
 		// TODO Auto-generated method stub
 		this.entityManager.persist(ticketsTourDetail);
 	}
+
+	@Override
+	public void updateTicketsTourDetail(TicketsTourDetail ticketsTourDetail) {
+		// TODO Auto-generated method stub
+		this.entityManager.merge(ticketsTourDetail);
+	}
+
+	@Override
+	public TicketsTourDetail findTicketsTourDetailById(int id) {
+		// TODO Auto-generated method stub
+		return this.entityManager.find(TicketsTourDetail.class, id);
+	}
 	
 	
 }

@@ -8,7 +8,7 @@ $(document).ready(function(){
             data.forEach(element => {
                 $("#notify").append(`<a class="dropdown-item d-flex align-items-center" href="http://localhost:8080/booking">
                 <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://scr.vn/wp-content/uploads/2020/07/H%C3%ACnh-avatar-m%C3%A8o-d%E1%BB%85-th%C6%B0%C6%A1ng.jpg" alt="">
+                    <img class="rounded-circle" src="https://static2.yan.vn/YanNews/2167221/202003/dan-mang-du-trend-thiet-ke-avatar-du-kieu-day-mau-sac-tu-anh-mac-dinh-b0de2bad.jpg" alt="">
                     <div class="status-indicator bg-success"></div>
                 </div>
                 <div class="font-weight-bold">
@@ -17,8 +17,6 @@ $(document).ready(function(){
                 </div>
             </a>
             `);
-    
-
           });
           $("#notify").append(`<a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>`);
           }

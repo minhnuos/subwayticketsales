@@ -19,7 +19,7 @@ public class ResponseBooking {
 	
 	private String address;
 	
-	private boolean status;
+	private int status;
 	
 	public String totalFormat() {
 		Locale localeVN = new Locale("vi", "VN");
@@ -28,11 +28,11 @@ public class ResponseBooking {
 		return result;
 	}
 	
-	public boolean isStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 

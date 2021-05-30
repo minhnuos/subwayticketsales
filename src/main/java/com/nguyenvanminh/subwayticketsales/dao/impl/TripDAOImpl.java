@@ -45,5 +45,11 @@ public class TripDAOImpl implements TripDAO{
 		return trip;
 	}
 
+	@Override
+	public void updateTrip(Trip trip) {
+		// TODO Auto-generated method stub
+		this.entityManager.merge(trip);
+	}
+
 	
 }

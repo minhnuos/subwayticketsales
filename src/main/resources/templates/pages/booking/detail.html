@@ -39,45 +39,25 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                	<h3 class="text-center mb-3">Danh sách người đặt hàng</h3>
+                	<h3 class="text-center mb-3">Danh sách chi tiết vé</h3>
                 	
                 	
 					<table class="table mt-3">
 					  <thead>
 					    <tr>
 					      <th scope="col">#</th>
-					      <th scope="col">Tên khách hàng</th>
-					      <th scope="col">Số điện thoại</th>
-					      <th scope="col">Địa chỉ</th>
-					      <th scope="col">Số lượng vé</th>
-					      <th scope="col">Số tiền</th>
-					      <th scope="col">Tình trạng</th>
-					      <th scope="col">Action</th>
+					      <th scope="col">Mã vé</th>
+					      <th scope="col">giá</th>
+					      
 					    </tr>
 					  </thead>
-					  <tbody th:each="listResponseBooking,iter : ${listResponseBookings}">
+					  <tbody th:each="detailTicket,iter : ${detailTickets}">
 					    <tr>
 					      <th scope="row" th:text="${iter.index}"></th>
-					      <td scope="row" th:text="${listResponseBooking.name}"></td>
-					      <td scope="row" th:text="${listResponseBooking.phone}"></td>
-					      <td scope="row" th:text="${listResponseBooking.address}"></td>
-					      <td scope="row" th:text="${listResponseBooking.quantity}"></td>
-					      <td scope="row" th:text="${listResponseBooking.totalFormat()}"></td>
-					      <td>
-						    <span th:if="${listResponseBooking.status == 1}" class="badge badge-success">Đã xác nhận</span>
-						    <span th:if="${listResponseBooking.status == 0}" class="badge badge-warning">Chưa xác nhận</span>
-						    <span th:if="${listResponseBooking.status == 2}" class="badge badge-danger">Đã Hủy</span>
-						</td>
+					      <td scope="row" th:text="${detailTicket.code}"></td>
+					      <td scope="row" th:text="${detailTicket.price}"></td>
 					      
-					      <td>
-					      	<div class="btn-group">
-					      		<a th:href="@{/booking/detail/{id}(id=${listResponseBooking.id}) }" class="btn btn-warning">Chi tiết</a>
-					      		<a th:if="${listResponseBooking.status == 0}" th:href="@{/booking/active/{id}(id=${listResponseBooking.id}) }" class="btn btn-success">Xác nhận</a>
-					      		<a th:if="${listResponseBooking.status == 0}" th:href="@{/booking/unactive/{id}(id=${listResponseBooking.id}) }" class="btn btn-danger">Hủy</a>
-					      		
-					      		
-					      	</div>
-					      </td>
+					      
 					    </tr>
 					    
 					  </tbody>

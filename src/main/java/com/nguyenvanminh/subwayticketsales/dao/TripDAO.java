@@ -12,4 +12,5 @@ public interface TripDAO {
 	
 	public Trip findTripById(int id);
 	
+	public void updateTrip(Trip trip);
 }
